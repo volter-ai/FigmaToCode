@@ -101,7 +101,9 @@ export class TailwindTextBuilder extends TailwindDefaultBuilder {
       return "font-mono";
     }
 
-    return "font-['" + fontName.family + "']";
+    const underscoreFontName = fontName.family.replace(/\s/g, "_");
+
+    return `font-['${underscoreFontName}']`;
   };
 
   /**
@@ -241,8 +243,7 @@ export class TailwindTextBuilder extends TailwindDefaultBuilder {
     if (this.node && (this.node as TextNode).effects) {
       const effects = (this.node as TextNode).effects;
       const blurEffect = effects.find(
-        (effect) =>
-          effect.type === "LAYER_BLUR" && effect.visible !== false,
+        (effect) => effect.type === "LAYER_BLUR" && effect.visible !== false,
       );
       if (blurEffect && blurEffect.radius && blurEffect.radius > 0) {
         const blurSuffix = pxToBlur(blurEffect.radius);
@@ -266,8 +267,7 @@ export class TailwindTextBuilder extends TailwindDefaultBuilder {
     if (this.node && (this.node as TextNode).effects) {
       const effects = (this.node as TextNode).effects;
       const dropShadow = effects.find(
-        (effect) =>
-          effect.type === "DROP_SHADOW" && effect.visible !== false,
+        (effect) => effect.type === "DROP_SHADOW" && effect.visible !== false,
       );
       if (dropShadow) {
         const ds = dropShadow as DropShadowEffect;
