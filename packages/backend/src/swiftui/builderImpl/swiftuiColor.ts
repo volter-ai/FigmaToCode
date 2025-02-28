@@ -3,7 +3,6 @@ import { gradientAngle } from "../../common/color";
 import { nearestValue } from "../../tailwind/conversionTables";
 import { numberToFixedString } from "../../common/numToAutoFixed";
 import { addWarning } from "../../common/commonConversionWarnings";
-import { getPlaceholderImage } from "../../common/images";
 
 export const swiftUISolidColor = (fill: Paint): string => {
   if (fill && fill.type === "SOLID") {
@@ -61,7 +60,9 @@ export const swiftuiBackground = (
     return swiftuiGradient(fill);
   } else if (fill?.type === "IMAGE") {
     addWarning("Image fills are replaced with placeholders");
-    return `AsyncImage(url: URL(string: "${getPlaceholderImage(node.width, node.height)}"))`;
+    return `AsyncImage(url: URL(string: "https://placehold.co/${node.width.toFixed(
+      0,
+    )}x${node.height.toFixed(0)}"))`;
   }
 
   return "";
